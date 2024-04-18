@@ -7,7 +7,12 @@ const initialState:initialStateType = {
     },
     currentPoll: {
         loading: false,
-        poll: undefined
+        poll: null
+    },
+    createPoll: {
+        options:[],
+        title:null
+
     }
 };
 export default initialState;

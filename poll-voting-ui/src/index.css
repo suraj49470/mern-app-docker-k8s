@@ -1,9 +1,11 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 @import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css);
 
-body{margin-top:20px;
-    background-color: #e4e6e9;
+.list-container{
     color: #41464d;
+    background-image: url(https://thecxlead.com/wp-content/uploads/sites/5/2023/07/CXL-%E2%80%93-Tool-Listicle-%E2%80%93-free-poll-maker.png);
+    min-height: 100vh;
+    height: auto;
 }
 
 .btn:not(:disabled):not(.disabled) {
@@ -105,3 +107,72 @@ body{margin-top:20px;
 .deleted-text{
 text-decoration:line-through;;    
 }
+
+#intro {
+    background-image: url(https://ropercenter.cornell.edu/sites/default/files/styles/800x600/public/Images/reading%20a%20poll_0.jpg?itok=9cuioW4w);
+    height: 100vh;
+  }
+
+
+
+  .navbar .nav-link {
+    color: #fff !important;
+  }
+
+  .addOption{
+    padding-left: 0px;
+  }
+
+  .poll-flex{
+    display: flex;
+  }
+  .poll-container-padding{
+    padding: 1em 3em !important;
+  }
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600);
+.poll-container{
+    height: 100vh;
+    width: 100%;
+    background-image: url(https://ropercenter.cornell.edu/sites/default/files/styles/800x600/public/Images/reading%20a%20poll_0.jpg?itok=9cuioW4w);
+  }  
+.poll {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border:#bfccd6 3px solid;
+    padding: 20px 40px 20px 40px;
+    @include box-sizing(border-box);
+    border-radius:4px;
+    background-color:#FFF;
+    
+    h3 {
+      margin:20px 0 10px 0;
+    }
+    
+    ul, li {
+      list-style:none;
+      margin:0; padding:0;
+    }
+    
+    li {
+      padding: 10px 0 10px 0;
+    }
+    
+    input[type="radio"] {
+      margin: 0 10px 0 0;
+    }
+    
+    input[type="submit"] {
+      margin:20px 0 0 0;
+      background-color:#53626E;
+      color:#FFF;
+      border:0;
+      width:100%; height: 40px;
+      font-size:10pt;
+      border-radius:4px;
+    }
+  }

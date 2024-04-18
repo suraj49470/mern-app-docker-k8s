@@ -6,8 +6,12 @@ import {
   POLL_LIST_LOADING,
   POLL_LIST_LOADING_FINISH,
 } from "../utils/voteActions";
-import { ActionType, initialStateType } from "../utils/vote.types";
- const voteReducer = (state: initialStateType, action: ActionType) => {
+import { ActionType, PollType, currentPoll, initialStateType } from "../utils/vote.types";
+export type pollType = {
+  poll: PollType,
+  currentPoll:currentPoll 
+}
+ const pollReducer = (state: pollType, action: ActionType) => {
   switch (action.type) {
     case POLL_LIST_LOADING:
       return {
@@ -65,4 +69,4 @@ import { ActionType, initialStateType } from "../utils/vote.types";
   }
 };
 
-export default voteReducer;
+export default pollReducer;
