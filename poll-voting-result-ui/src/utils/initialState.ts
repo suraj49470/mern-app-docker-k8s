@@ -6,7 +6,7 @@ const initialState:initialStateType = {
         polls: []
     },
     currentPoll: {
-        loading: false,
+        loading: true,
         poll: null
     },
     createPoll: {

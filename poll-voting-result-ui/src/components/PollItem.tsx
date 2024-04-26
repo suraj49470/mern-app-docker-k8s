@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Poll } from '../utils/vote.types'
 
@@ -19,13 +19,11 @@ function checkPollExpiry(data: Date) {
 
 }
 function PollItem({ poll }: any) {
-  console.log(poll);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
     const result = checkPollExpiry(poll.createdAt);
     setActive(result)
-    console.log(result);
   }, []);
   return (
     <div className="d-style bgc-white btn btn-brc-tp btn-outline-green btn-h-outline-green btn-a-outline-green w-100 my-2 py-3 shadow-sm border-2">
@@ -56,13 +54,8 @@ function PollItem({ poll }: any) {
         </ul>
 
         <div className="col-12 col-md-4 text-center">
-          <Link to={active ? `/poll/${poll._id}` : ''} className={`f-n-hover btn btn-primary btn-raised px-4 py-25 w-75 text-600 list-btn ${!active ? 'disabled' : ''}`}>Vote</Link>
-          <Link target="_blank" rel="noopener noreferrer" to={`http://localhost:3001/result/${poll._id}`} className="f-n-hover btn btn-success btn-raised px-4 py-25 w-75 text-600 list-btn">
-            View Result
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-up-right open-new" viewBox="0 0 16 16">
-                <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
-                <path fillRule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
-            </svg> 
+          <Link to={`/result/${poll._id}`} className="f-n-hover btn btn-success btn-raised px-4 py-25 w-75 text-600 list-btn">
+              View Result
           </Link>
         </div>
       </div>
@@ -71,4 +64,4 @@ function PollItem({ poll }: any) {
   )
 }
 
-export default memo(PollItem)
+export default PollItem

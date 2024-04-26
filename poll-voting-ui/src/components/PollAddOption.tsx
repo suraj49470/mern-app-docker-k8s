@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 function PollAddOption({addPollOption}: any) {
    
@@ -9,4 +9,4 @@ function PollAddOption({addPollOption}: any) {
     )
 }
 
-export default PollAddOption
+export default memo(PollAddOption) 

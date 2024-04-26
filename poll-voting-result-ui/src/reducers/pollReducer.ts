@@ -47,8 +47,6 @@ export type pollType = {
         },
       };
     case CURRENT_POLL_LIST_LOADING_FINISH:
-      console.log(action.payload);
-      
       return {
         ...state,
         currentPoll: {

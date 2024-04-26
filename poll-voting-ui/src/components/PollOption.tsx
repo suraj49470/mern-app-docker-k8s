@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import image from '../images/delete.svg';
 function PollOption({option,deletePollOption , index , updateOption}: any) {
     console.log(option);
@@ -17,4 +17,4 @@ function PollOption({option,deletePollOption , index , updateOption}: any) {
     )
 }
 
-export default PollOption
+export default memo(PollOption)

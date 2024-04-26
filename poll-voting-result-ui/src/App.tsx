@@ -1,32 +1,38 @@
-import React, { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import React, { createContext, useReducer } from 'react'
+import './index.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import pollReducer from './reducers/pollReducer';
+import initialState from './utils/initialState';
+import PollListContainers from './containers/PollListContainer/PollListContainer';
+import { io } from "socket.io-client";
+import PollResultContainer from './containers/PollResultContainer/PollResultContainer';
+//console.log(process);
 
+const socket = io("http://localhost:5001");
+socket.on("connect", () => {
+  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+});
+
+socket.on("disconnect", () => {
+  console.log('disconnected',socket.id); // undefined
+});
+export const VoteContext = createContext<any>({} as any)
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button onClick={() => setCount(count => count + 1)}>count is: {count}</button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  )
+  const [pollState, pollDispatch] = useReducer(pollReducer, {
+    poll: initialState.poll,
+    currentPoll: initialState.currentPoll
+  });
+  const voteStateDispatch = { pollState, pollDispatch,socket };
+    return (
+        <VoteContext.Provider value={voteStateDispatch}>
+          <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<PollListContainers />} />
+                <Route path="/result/:id" element={<PollResultContainer />} />
+            </Routes>
+          </BrowserRouter>
+      </VoteContext.Provider>
+    )
 }
 
 export default App

@@ -1,6 +1,6 @@
-import React, { createContext, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer } from 'react'
 import './index.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import pollReducer from './reducers/pollReducer';
 import initialState from './utils/initialState';
 import PollListContainers from './containers/PollListContainer/PollListContainer';
@@ -8,25 +8,39 @@ import PollCreatetContainers from './containers/PollCreateContainer/PollCreateCo
 import createPollReducer from './reducers/createPollReducer';
 import PollContainer from './containers/PollContainer/PollContainer';
 
+import { io } from "socket.io-client";
+const socket = io("http://localhost:5000");
+socket.on("connect", () => {
+  console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+});
+
+socket.on("disconnect", () => {
+  console.log('disconnected', socket.id); // undefined
+});
 export const VoteContext = createContext<any>({} as any)
 function App() {
   const [pollState, pollDispatch] = useReducer(pollReducer, {
     poll: initialState.poll,
     currentPoll: initialState.currentPoll
   });
+  
   const [createPollState, createPollDispatch] = useReducer(createPollReducer, initialState.createPoll);
-  const voteStateDispatch = { pollState, pollDispatch,createPollState,createPollDispatch };
-    return (
-        <VoteContext.Provider value={voteStateDispatch}>
-          <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<PollListContainers />} />
-                <Route path="create" element={<PollCreatetContainers />} />
-                <Route path="poll" element={<PollContainer />} />
-            </Routes>
-          </BrowserRouter>
-      </VoteContext.Provider>
-    )
+  const voteStateDispatch = { pollState, pollDispatch, createPollState, createPollDispatch, socket };
+  
+
+
+
+  return (
+    <VoteContext.Provider value={voteStateDispatch}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PollListContainers />} />
+          <Route path="create" element={<PollCreatetContainers />} />
+          <Route path="poll/:poll_id" element={<PollContainer />} />
+        </Routes>
+      </BrowserRouter>
+    </VoteContext.Provider>
+  )
 }
 
 export default App
