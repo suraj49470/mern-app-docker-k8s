@@ -6,7 +6,7 @@ import {
   POLL_LIST_LOADING,
   POLL_LIST_LOADING_FINISH,
 } from "../utils/voteActions";
-import { ActionType, PollType, currentPoll, initialStateType } from "../utils/vote.types";
+import { ActionType, PollType, currentPoll } from "../utils/vote.types";
 export type pollType = {
   poll: PollType,
   currentPoll:currentPoll 

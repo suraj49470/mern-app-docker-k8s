@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Poll } from '../utils/vote.types'
-
+const { REACT_APP_POLL_RESULT_URL } = process.env;
 
 function checkPollExpiry(data: Date) {
   // Define the first date
@@ -57,7 +57,7 @@ function PollItem({ poll }: any) {
 
         <div className="col-12 col-md-4 text-center">
           <Link to={active ? `/poll/${poll._id}` : ''} className={`f-n-hover btn btn-primary btn-raised px-4 py-25 w-75 text-600 list-btn ${!active ? 'disabled' : ''}`}>Vote</Link>
-          <Link target="_blank" rel="noopener noreferrer" to={`http://localhost:3001/result/${poll._id}`} className="f-n-hover btn btn-success btn-raised px-4 py-25 w-75 text-600 list-btn">
+          <Link target="_blank" rel="noopener noreferrer" to={`${REACT_APP_POLL_RESULT_URL}/result/${poll._id}`} className="f-n-hover btn btn-success btn-raised px-4 py-25 w-75 text-600 list-btn">
             View Result
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-box-arrow-up-right open-new" viewBox="0 0 16 16">
                 <path fillRule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>

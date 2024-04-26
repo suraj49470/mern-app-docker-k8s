@@ -1,15 +1,15 @@
-import React, { createContext, useEffect, useReducer } from 'react'
+import { createContext, useReducer } from 'react'
 import './index.css'
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import pollReducer from './reducers/pollReducer';
 import initialState from './utils/initialState';
 import PollListContainers from './containers/PollListContainer/PollListContainer';
 import PollCreatetContainers from './containers/PollCreateContainer/PollCreateContainer';
 import createPollReducer from './reducers/createPollReducer';
 import PollContainer from './containers/PollContainer/PollContainer';
-
 import { io } from "socket.io-client";
-const socket = io("http://localhost:5000");
+const { REACT_APP_BACKEND_URL } = process.env;
+const socket = io(REACT_APP_BACKEND_URL || 'http://localhost:5000');
 socket.on("connect", () => {
   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
 });
@@ -23,10 +23,10 @@ function App() {
     poll: initialState.poll,
     currentPoll: initialState.currentPoll
   });
-  
+
   const [createPollState, createPollDispatch] = useReducer(createPollReducer, initialState.createPoll);
   const voteStateDispatch = { pollState, pollDispatch, createPollState, createPollDispatch, socket };
-  
+
 
 
 

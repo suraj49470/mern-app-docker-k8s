@@ -6,9 +6,8 @@ import initialState from './utils/initialState';
 import PollListContainers from './containers/PollListContainer/PollListContainer';
 import { io } from "socket.io-client";
 import PollResultContainer from './containers/PollResultContainer/PollResultContainer';
-//console.log(process);
-
-const socket = io("http://localhost:5001");
+const { REACT_APP_BACKEND_URL } = process.env;
+const socket = io(REACT_APP_BACKEND_URL || 'http://localhost:5001');
 socket.on("connect", () => {
   console.log(socket.id); // x8WIv7-mJelg7on_ALbx
 });

@@ -1,4 +1,4 @@
-import React, { CSSProperties, memo, useContext, useEffect, useState } from 'react';
+import { memo, useContext, useEffect } from 'react';
 import PollItem from '../../components/PollItem';
 import { VoteContext } from '../../App';
 import { Poll } from '../../utils/vote.types';
