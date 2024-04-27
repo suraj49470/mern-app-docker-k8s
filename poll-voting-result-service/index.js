@@ -11,7 +11,7 @@ const sc = require('socket.io-client');
 const myClientList = {};
 
 const httpServer = createServer(app);
-const socket_client = sc.io("http://localhost:5000");
+const socket_client = sc.io(process.env.POLL_VOTING_SERVICE);
 const io = new Server(httpServer, { 
     cors:{
         origin:"*"
