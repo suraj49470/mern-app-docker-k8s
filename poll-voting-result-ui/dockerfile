@@ -1,0 +1,11 @@
+FROM node:18-alpine3.18 as Build
+WORKDIR /poll-voting-result-ui
+COPY package*.json .
+RUN npm ci
+COPY . .
+RUN npm run build
+RUN ls -l
+
+FROM  nginx:1.25.5-alpine-slim as deploy
+COPY --from=Build /poll-voting-result-ui/build /usr/share/nginx/html
+EXPOSE 80
