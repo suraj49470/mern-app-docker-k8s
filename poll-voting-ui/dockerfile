@@ -1,0 +1,6 @@
+FROM node:18-alpine3.18 as Build
+COPY package*.json .
+RUN npm ci
+COPY . .
+RUN npm run Build
+RUN printenv
