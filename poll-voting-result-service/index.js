@@ -102,7 +102,7 @@ socket_client.on('SERVICE_TO_SERVICE_SYNC' , async (action) => {
 });
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 httpServer.listen(PORT , (err) => {
     if(err){
         console.log(err);
