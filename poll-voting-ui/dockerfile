@@ -3,9 +3,11 @@ WORKDIR /poll-voting-ui
 COPY package*.json .
 RUN npm ci
 COPY . .
+RUN ls -l
+RUN chmod +x deployment/entrypoint.sh
+RUN deployment/entrypoint.sh
 RUN npm run build
-RUN chmod +x ./deployment/entrypoint.sh
-RUN ./deployment/entrypoint.sh
+
 
 FROM  nginx:1.25.5-alpine-slim as deploy
 COPY --from=Build /poll-voting-ui/build /usr/share/nginx/html
