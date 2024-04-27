@@ -5,7 +5,7 @@ services:
     build: ./poll-voting-ui
     image: poll-voting-ui:latest
     environment:
-      REACT_APP_BACKEND_URL: example
+      REACT_APP_BACKEND_URL: http://poll-voting-service:5000
       REACT_APP_POLL_RESULT_URL: http://poll-voting-result-ui:3001
     ports:
       - 3000:80
@@ -15,6 +15,8 @@ services:
   poll-voting-result-ui:
     build: ./poll-voting-result-ui
     image: poll-voting-result-ui:latest
+    environment:
+      REACT_APP_BACKEND_URL: http://poll-voting-service:5001
     ports:
       - 3001:80
     networks:
