@@ -3,4 +3,4 @@ WORKDIR /poll-voting-result-service
 COPY package*.json .
 RUN npm ci
 COPY . .
-CMD [ "npm" , 'start' ]
+CMD [ "npm" , "start" ]
