@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Wait for MongoDB containers to be up and running
-echo "Waiting for MongoDB containers to start..."
-sleep 10
+# Wait for MongoDB to be ready
+until mongo --eval "print(\"waited for connection\")"
+do
+    echo "Waiting for MongoDB to initialize..."
+    sleep 2
+done
 
-# Connect to mongo1 and initiate replica set
-docker exec -it mongo1 mongo --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'mongo1:27017'}, {_id: 1, host: 'mongo2:27017'}, {_id: 2, host: 'mongo3:27017'}]})"
+# Initialize replica set
+mongo --eval "rs.initiate({_id: 'rs0', members: [{_id: 0, host: 'mongo1:27017'}, {_id: 1, host: 'mongo2:27017'}, {_id: 2, host: 'mongo3:27017'}]})"
