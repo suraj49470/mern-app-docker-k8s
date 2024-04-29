@@ -4,7 +4,7 @@ services:
   mongo1:
     image: mongo
     container_name: mongo1
-    command: ["chmod", "+x", "/initiate_replica_set.sh", "&&", "/initiate_replica_set.sh"]
+    command: ["chmod", "+x", "initiate_replica_set.sh", "&&", "initiate_replica_set.sh"]
     ports:
       - "27017:27017"
     volumes:
