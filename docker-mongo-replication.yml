@@ -32,7 +32,7 @@ services:
     command: > 
       mongosh --host mongo_server_1:27017 --eval 
         '
-      db = (new Mongo("localhost:27017")).getDB("vote");
+      db = (new Mongo("localhost:27017")).getDB("test");
       config = {
       "_id" : "poll-replica",
       "members" : [
