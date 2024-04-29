@@ -2,9 +2,9 @@ version: '3.8'
 
 services:
   mongo1:
-    image: mongo
+    image: mongo:7
     container_name: mongo1
-    command: ["chmod", "+x", "initiate_replica_set.sh", "&&", "initiate_replica_set.sh"]
+    command: ["bash", "-c", "chmod +x /initiate_replica_set.sh && /initiate_replica_set.sh"]
     ports:
       - "27017:27017"
     volumes:
@@ -12,9 +12,12 @@ services:
       - ./initiate_replica_set.sh:/initiate_replica_set.sh
     networks:
       - mongo-net
+    depends_on:
+      - mongo2
+      - mongo3
 
   mongo2:
-    image: mongo
+    image: mongo:7
     container_name: mongo2
     command: ["mongod", "--replSet", "rs0", "--port", "27017"]
     ports:
@@ -25,7 +28,7 @@ services:
       - mongo-net
 
   mongo3:
-    image: mongo
+    image: mongo:7
     container_name: mongo3
     command: ["mongod", "--replSet", "rs0", "--port", "27017"]
     ports:
