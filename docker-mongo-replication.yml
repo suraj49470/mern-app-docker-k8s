@@ -23,7 +23,7 @@ services:
     networks:
       - poll
   mongo_ini_server:
-    restart: no
+    restart: "no"
     depends_on:
       - mongo_server_1
       - mongo_server_2
