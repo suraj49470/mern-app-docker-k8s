@@ -12,7 +12,7 @@ services:
     image: mongo:latest
     command: mongod --replSet poll-replica
     ports:
-      - 4001:27017
+      - 4002:27017
     networks:
       - poll
   mongo_server_3:
