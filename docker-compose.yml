@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   poll-voting-ui:
-    build: ../
+    build: ./poll-voting-ui
     image: poll-voting-ui:latest
     environment:
       REACT_APP_BACKEND_URL: http://poll-voting-service:5000
