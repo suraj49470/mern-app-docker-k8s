@@ -10,6 +10,7 @@ const { REACT_APP_BACKEND_URL } = process.env;
 
 export const VoteContext = createContext<any>({} as any)
 function App() {
+  console.log(process.env);
   const [socket] = useState(io(REACT_APP_BACKEND_URL || 'http://localhost:5001'));
   socket.on("connect", () => {
     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
