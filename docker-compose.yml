@@ -9,9 +9,10 @@ services:
       REACT_APP_POLL_RESULT_URL: http://poll-voting-result-ui:3001
     ports:
       - 3000:80
+    depends_on:
+      - poll-voting-service
     networks:
       - poll
-
   poll-voting-result-ui:
     build: ./poll-voting-result-ui
     image: poll-voting-result-ui:latest
@@ -19,17 +20,20 @@ services:
       REACT_APP_BACKEND_URL: http://poll-voting-service:5001
     ports:
       - 3001:80
+    depends_on:
+      - poll-voting-result-service
     networks:
       - poll
-
   poll-voting-service:
     build: ./poll-voting-service
     image: poll-voting-service:latest
     environment:
-      MONGO_URL: mongodb://mongo:27017/vote?directConnection=true
+      MONGO_URL: mongodb://mongo_primary:27017/vote?directConnection=true
       PORT: 5000
     ports:
       - 5000:5000
+    depends_on:
+      - mongo_primary
     networks:
       - poll
 
@@ -37,11 +41,13 @@ services:
     build: ./poll-voting-result-service
     image: poll-voting-result-service:latest
     environment:
-      MONGO_URL: mongodb://mongo:27018/vote?directConnection=true&readPreference=primaryPreferred
+      MONGO_URL: mongodb://mongo_secondary_1:27018/vote?directConnection=true&readPreference=primaryPreferred
       POLL_VOTING_SERVICE: http://poll-voting-service:5000
       PORT: 5001
     ports:
       - 5001:5001
+    depends_on:
+      - mongo_secondary_1
     networks:
       - poll
   mongo_primary:
