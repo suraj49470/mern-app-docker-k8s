@@ -1,6 +1,7 @@
 FROM node:18-alpine3.18 as Build
 WORKDIR /poll-voting-service
 COPY package*.json .
+RUN printenv
 RUN npm ci
 COPY . .
 CMD [ "npm" , "start" ]
