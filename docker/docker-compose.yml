@@ -26,7 +26,7 @@ services:
     build: ./poll-voting-service
     image: poll-voting-service:latest
     environment:
-      MONGO_URL: mongodb://mongo:27017/vote
+      MONGO_URL: mongodb://mongo:27017/vote?directConnection=true
       PORT: 5000
     ports:
       - 5000:5000
@@ -37,21 +37,42 @@ services:
     build: ./poll-voting-result-service
     image: poll-voting-result-service:latest
     environment:
-      MONGO_URL: mongodb://mongo:27017/vote
+      MONGO_URL: mongodb://mongo:27018/vote?directConnection=true&readPreference=primaryPreferred
       POLL_VOTING_SERVICE: http://poll-voting-service:5000
       PORT: 5001
     ports:
       - 5001:5001
     networks:
       - poll
-
-  mongo:
-    image: mongo:latest
-    ports:
-      - 27017:27017
+  mongo_primary:
+    container_name: mongo_primary
+    image: mongo
+    volumes:
+      - ./scripts/rs-init.sh:/scripts/rs-init.sh
+      - ./scripts/init.js:/scripts/init.js
+      - mongo_primary_volume:/data/db
     networks:
       - poll
-
+    ports:
+      - 27017:27017
+    depends_on:
+      - mongo_secondary_1
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs" ]
+  mongo_secondary_1:
+    container_name: mongo_secondary_1
+    image: mongo
+    volumes:
+      - mongo_secondary_volume_1:/data/db
+    networks:
+      - poll
+    ports:
+      - 27018:27017
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs" ]
+volumes:
+  mongo_primary_volume:
+  mongo_secondary_volume_1:
 networks:
   poll:
     driver: bridge
