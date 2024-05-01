@@ -20,8 +20,8 @@ sleep $DELAY
 echo "*****************************************"
 echo "****** Transforming poll-voting-ui ******"
 echo "*****************************************"
-docker exec -it mern-app-docker-k8s_poll-voting-ui_1 sh -x scripts/transform.sh
+docker exec mern-app-docker-k8s_poll-voting-ui_1 sh -x scripts/transform.sh
 echo "*****************************************"
 echo "** Transforming poll-voting-result-ui ***"
 echo "*****************************************"
-docker exec -it mern-app-docker-k8s_poll-voting-result-ui_1 sh -x scripts/transform.sh
+docker exec mern-app-docker-k8s_poll-voting-result-ui_1 sh -x scripts/transform.sh
