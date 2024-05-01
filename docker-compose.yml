@@ -4,6 +4,8 @@ services:
   poll-voting-ui:
     build: ./poll-voting-ui
     image: poll-voting-ui:latest
+    volumes:
+      - ./scripts/transform.sh:/scripts/transform.sh
     environment:
       REACT_APP_BACKEND_URL: http://poll-voting-service:5000
       REACT_APP_POLL_RESULT_URL: http://poll-voting-result-ui:3001
@@ -16,6 +18,8 @@ services:
   poll-voting-result-ui:
     build: ./poll-voting-result-ui
     image: poll-voting-result-ui:latest
+    volumes:
+      - ./scripts/transform.sh:/scripts/transform.sh
     environment:
       REACT_APP_BACKEND_URL: http://poll-voting-service:5001
     ports:
