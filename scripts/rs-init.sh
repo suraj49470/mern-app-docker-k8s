@@ -14,7 +14,7 @@ var config = {
         },
         {
             "_id": 1,
-            "host": "mongo_secondary_1:27017",
+            "host": "mongo_secondary_1:27018",
             "priority": 1
         }
     ]
