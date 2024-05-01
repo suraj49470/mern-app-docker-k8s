@@ -1,6 +1,5 @@
-import React, { memo, useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Poll } from '../utils/vote.types'
 const { REACT_APP_POLL_RESULT_URL } = process.env;
 
 function checkPollExpiry(data: Date) {

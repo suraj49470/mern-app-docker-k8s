@@ -1,9 +1,9 @@
-import React, { CSSProperties, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import PollItem from '../../components/PollItem';
 import { VoteContext } from '../../App';
 import { Poll } from '../../utils/vote.types';
 import Loading from '../../components/Loading';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 function PollListContainers() {
   const location = useLocation();
   const { pollState, pollDispatch,socket } = useContext(VoteContext);
@@ -45,11 +45,6 @@ function PollListContainers() {
             return <PollItem key={index} poll={poll}/>
           })
         }
-        <div className="fab-container">
-        <Link to="/create" className="fab">
-            <button className="fab">+</button>
-        </Link>
-        </div>
       </div>
     </div>
   );
