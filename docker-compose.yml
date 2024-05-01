@@ -56,7 +56,7 @@ services:
     volumes:
       - ./scripts/rs-init.sh:/scripts/rs-init.sh
       - ./scripts/init.js:/scripts/init.js
-      - mongo_primary_volume:/data/db
+      - ./mongo_primary_volume:/data/db
     networks:
       - poll
     ports:
@@ -69,13 +69,13 @@ services:
     container_name: mongo_secondary_1
     image: mongo
     volumes:
-      - mongo_secondary_volume_1:/data/db
+      - ./mongo_secondary_volume_1:/data/db
     networks:
       - poll
     ports:
-      - 27018:27017
+      - 27018:27018
     restart: always
-    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs" ]
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs", "--port" , "27018" ]
 volumes:
   mongo_primary_volume:
   mongo_secondary_volume_1:

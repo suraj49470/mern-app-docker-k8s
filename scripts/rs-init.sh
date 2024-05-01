@@ -8,12 +8,12 @@ var config = {
     "version": 1,
     "members": [
         {
-            "_id": 1,
+            "_id": 0,
             "host": "mongo_primary:27017",
             "priority": 2
         },
         {
-            "_id": 2,
+            "_id": 1,
             "host": "mongo_secondary_1:27017",
             "priority": 1
         }
