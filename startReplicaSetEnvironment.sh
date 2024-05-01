@@ -1,10 +1,14 @@
 #!/bin/bash
 
 DELAY=10
-
+echo "*****************************************"
+echo "****** Destroying containers ************"
+echo "*****************************************"
 docker-compose down
-
-DOCKER_BUILDKIT=0 docker-compose up -d
+echo "*****************************************"
+echo "****** provisioning containers **********"
+echo "*****************************************"
+docker-compose up -d
 
 echo "****** Waiting for ${DELAY} seconds for containers to go up ******"
 sleep $DELAY
