@@ -13,7 +13,11 @@ docker exec mongo_primary /scripts/rs-init.sh
 
 echo "****** Waiting for ${DELAY} seconds to tranform URLS ******"
 sleep $DELAY
+echo "*****************************************"
 echo "****** Transforming poll-voting-ui ******"
+echo "*****************************************"
 docker exec -it mern-app-docker-k8s_poll-voting-ui_1 sh -x scripts/transform.sh
-echo "****** Transforming poll-voting-result-ui ******"
+echo "*****************************************"
+echo "** Transforming poll-voting-result-ui ***"
+echo "*****************************************"
 docker exec -it mern-app-docker-k8s_poll-voting-result-ui_1 sh -x scripts/transform.sh
