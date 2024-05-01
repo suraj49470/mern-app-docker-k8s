@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   poll-voting-ui:
+    hostname: poll-voting-ui
     build: ./poll-voting-ui
     image: poll-voting-ui:latest
     volumes:
@@ -16,6 +17,7 @@ services:
     networks:
       - poll
   poll-voting-result-ui:
+    hostname: poll-voting-result-ui
     build: ./poll-voting-result-ui
     image: poll-voting-result-ui:latest
     volumes:
@@ -29,6 +31,7 @@ services:
     networks:
       - poll
   poll-voting-service:
+    hostname: poll-voting-service
     build: ./poll-voting-service
     image: poll-voting-service:latest
     environment:
@@ -42,6 +45,7 @@ services:
       - poll
 
   poll-voting-result-service:
+    hostname: poll-voting-result-service
     build: ./poll-voting-result-service
     image: poll-voting-result-service:latest
     environment:
@@ -55,12 +59,13 @@ services:
     networks:
       - poll
   mongo_primary:
+    hostname: mongo_primary
     container_name: mongo_primary
     image: mongo
     volumes:
       - ./scripts/rs-init.sh:/scripts/rs-init.sh
       - ./scripts/init.js:/scripts/init.js
-      - ./mongo_primary_volume:/data/db
+      - mongo_primary_volume:/data/db
     networks:
       - poll
     ports:
@@ -70,10 +75,11 @@ services:
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs" ]
   mongo_secondary_1:
+    hostname: mongo_secondary_1
     container_name: mongo_secondary_1
     image: mongo
     volumes:
-      - ./mongo_secondary_volume_1:/data/db
+      - mongo_secondary_volume_1:/data/db
     networks:
       - poll
     ports:
