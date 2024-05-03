@@ -33,11 +33,11 @@ spec:
       containers:
       - name: poll-voting-result-ui
         image: suraj49470/poll-voting-result-ui:latest
-        volumeMounts:
-          - name: ngnix-volume-cfg
-            mountPath: /etc/nginx/conf.d/default.conf
-          - name: transform-volume-cfg
-            mountPath: /scripts/transform.sh
+        # volumeMounts:
+        #   - name: ngnix-volume-cfg
+        #     mountPath: /etc/nginx/conf.d/default.conf
+        #   - name: transform-volume-cfg
+        #     mountPath: /scripts/transform.sh
         env: 
           - name: REACT_APP_BACKEND_URL
             value: http://poll-voting-result-service:5001
