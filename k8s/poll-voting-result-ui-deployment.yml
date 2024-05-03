@@ -49,8 +49,8 @@ spec:
         - containerPort: 80
       volumes:
         - name: ngnix-volume-cfg
-          configMap :
+          configMap:
             name: nginx-config
         - name: transform-volume-cfg
-          configMap :
+          configMap:
             name: transform-config
