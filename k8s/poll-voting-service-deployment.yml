@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: poll-voting-service
-  namespace: poll-namespace
+  namespace: poll
 spec:
   type: ClusterIP
   selector:
@@ -16,7 +16,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: poll-voting-service
-  namespace: poll-namespace
+  namespace: poll
 spec:
   replicas: 1
   selector:
@@ -24,7 +24,7 @@ spec:
       app: poll-voting-service
   template:
     metadata:
-      namespace: poll-namespace
+      namespace: poll
       labels:
         app: poll-voting-service
     spec:

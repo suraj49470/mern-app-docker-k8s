@@ -2,5 +2,5 @@ apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: poll-storage-class
-  namespace: poll-namespace
+  namespace: poll
 provisioner: kubernetes.io/no-provisioner

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: poll-pvc
-  namespace: poll-namespace
+  namespace: poll
 spec:
   accessModes:
     - ReadWriteOnce
