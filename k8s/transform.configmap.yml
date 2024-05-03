@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: transform-config
+  namespace: poll
 data: 
   transform.sh : |
     #!/bin/bash
