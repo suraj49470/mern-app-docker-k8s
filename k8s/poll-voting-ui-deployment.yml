@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: poll-voting-ui-service
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: poll-voting-ui
   ports:
