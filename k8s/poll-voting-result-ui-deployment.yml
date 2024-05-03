@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poll-voting-result-ui-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: poll-voting-result-ui
+  ports:
+  - port: 3001
+    targetPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poll-voting-result-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poll-voting-result-ui
+  template:
+    metadata:
+      labels:
+        app: poll-voting-result-ui
+    spec:
+      containers:
+      - name: poll-voting-result-ui
+        image: suraj49470/poll-voting-result-ui:latest
+        env: 
+          - name: REACT_APP_BACKEND_URL
+            value: http://poll-voting-result-service:5001
+        resources:
+          limits:
+            memory: "50Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 80
+      # volumes:
+      #   - name: poll-pod-volume
+      #     PersistentVolumeClaim:
+      #       claimName: poll-pvc
