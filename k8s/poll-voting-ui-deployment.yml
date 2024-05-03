@@ -32,6 +32,11 @@ spec:
       containers:
       - name: poll-voting-ui
         image: suraj49470/poll-voting-ui:latest
+        volumes:
+          - name: ngnix-volume-cfg
+            mountPath: /etc/nginx/conf.d/default.conf
+          - name: transform-volume-cfg
+            mountPath: /scripts/transform.sh
         env :
           - name:  REACT_APP_BACKEND_URL
             value: http://poll-voting-service:5000 
@@ -43,7 +48,10 @@ spec:
             cpu: "100m"
         ports:
         - containerPort: 80
-      # volumes:
-      #   - name: poll-pod-volume
-      #     PersistentVolumeClaim:
-      #       claimName: poll-pvc
+      volumes:
+        - name: ngnix-volume-cfg
+          configMap :
+            name: nginx-config
+        - name: transform-volume-cfg
+          configMap :
+            name: transform-config
