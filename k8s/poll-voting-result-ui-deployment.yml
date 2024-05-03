@@ -39,6 +39,7 @@ spec:
             subPath: default.conf
           - name: transform-volume-cfg
             mountPath: /scripts/transform.sh
+            read_only: false
         env: 
           - name: REACT_APP_BACKEND_URL
             value: http://poll-voting-result-service:5001
