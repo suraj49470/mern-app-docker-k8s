@@ -35,7 +35,7 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
-          command: ["sh","-c","cp /config-scripts/* /scripts/"]
+          command: ["sh","-c","cp /config-scripts/* /scripts/ && chmod +x /scripts/* && ./scripts/transform.sh"]
           volumeMounts:
           - name: ngnix-volume-cfg
             mountPath: /etc/nginx/conf.d/default.conf
