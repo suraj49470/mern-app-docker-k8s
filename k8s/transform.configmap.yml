@@ -5,7 +5,7 @@ metadata:
   namespace: poll
 data: 
   transform.sh : |
-    #!/bin/bash
+    #!/bin/sh
     printenv
     cd /usr/share/nginx/html/static/js
     # Iterate over all .js files in the current directory

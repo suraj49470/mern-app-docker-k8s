@@ -30,6 +30,21 @@ spec:
       labels:
         app: poll-voting-result-ui
     spec:
+      initContainers: 
+        - name: permission-fix
+          image: busybox:latest
+          command: ["sh","-c","chown 1000:1000 /scripts/transform.sh"]
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          volumeMounts:
+          - name: ngnix-volume-cfg
+            mountPath: /etc/nginx/conf.d/default.conf
+            subPath: default.conf
+            readOnly: false
+          - name: transform-volume-cfg
+            mountPath: /scripts/transform.sh
+            readOnly: false            
       containers:
       - name: poll-voting-result-ui
         image: suraj49470/poll-voting-result-ui:latest
@@ -37,9 +52,10 @@ spec:
           - name: ngnix-volume-cfg
             mountPath: /etc/nginx/conf.d/default.conf
             subPath: default.conf
+            readOnly: false
           - name: transform-volume-cfg
             mountPath: /scripts/transform.sh
-            read_only: false
+            readOnly: false
         env: 
           - name: REACT_APP_BACKEND_URL
             value: http://poll-voting-result-service:5001
