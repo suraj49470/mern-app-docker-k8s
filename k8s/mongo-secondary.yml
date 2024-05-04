@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service-secondary
+  namespace: poll
+spec:
+  type: LoadBalancer
+  selector:
+    role: mongo-secondary
+  ports:
+  - port: 27017
+    targetPort: 27017
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: poll-statefulset-secondary
+  namespace: poll
+spec:
+  selector:
+    matchLabels:
+      role: mongo-secondary
+  serviceName: mongo-service-secondary
+  replicas: 2
+  template:
+    metadata:
+      namespace: poll
+      name: mongo
+      labels:
+        role: mongo-secondary
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: mongo
+        image: mongo
+        command: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs" ]
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-volume-secondary
+          mountPath: /data/db
+      volumes:
+        - name: mongo-volume-secondary
+          persistentVolumeClaim:
+            claimName: poll-pvc

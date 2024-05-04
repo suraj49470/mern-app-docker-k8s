@@ -6,7 +6,7 @@ metadata:
 spec:
   clusterIP: None
   selector:
-    app: mongo
+    role: mongo-primary
   ports:
   - port: 27017
     targetPort: 27017
@@ -19,7 +19,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: mongo
+      role: mongo-primary
   serviceName: mongo-service-primary
   replicas: 1
   template:
@@ -27,7 +27,7 @@ spec:
       namespace: poll
       name: mongo
       labels:
-        app: mongo
+        role: mongo-primary
     spec:
       restartPolicy: Always
       containers:
