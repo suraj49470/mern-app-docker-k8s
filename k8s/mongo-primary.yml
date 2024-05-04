@@ -21,7 +21,7 @@ spec:
     matchLabels:
       role: mongo-primary
   serviceName: mongo-service-primary
-  replicas: 1
+  replicas: 2
   template:
     metadata:
       namespace: poll
