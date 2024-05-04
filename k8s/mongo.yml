@@ -31,7 +31,6 @@ spec:
         image: mongo
         ports:
         - containerPort: 27017
-          name: mongoPort
         volumeMounts:
         - name: mongo-volume
           mountPath: /data/db
