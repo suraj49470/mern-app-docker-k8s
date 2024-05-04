@@ -10,4 +10,4 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: /var/data
+    path: /tmp/data
