@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongo-service
+  name: mongo-service-primary
   namespace: poll
 spec:
   clusterIP: None
@@ -11,37 +11,17 @@ spec:
   - port: 27017
     targetPort: 27017
 ---
-apiVersion: v1
-kind: Service
-metadata:
-  name: poll-statefulset-LoadBalancer
-spec:
-  selector:
-    app: poll-statefulset
-  type: LoadBalancer
-  ports:
-    - protocol: TCP
-      port: 27017
-      targetPort: 27017
-  matchExpressions:
-    - key: ordinal-index
-      operator: In
-      values:
-        - "1"
-        - "2"
-
----
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: poll-statefulset
+  name: poll-statefulset-primary
   namespace: poll
 spec:
   selector:
     matchLabels:
       app: mongo
-  serviceName: mongo-service
-  replicas: 3
+  serviceName: mongo-service-primary
+  replicas: 1
   template:
     metadata:
       namespace: poll
@@ -63,5 +43,48 @@ spec:
         - name: mongo-volume
           persistentVolumeClaim:
             claimName: poll-pvc
-          
-  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-service-primary
+  namespace: poll
+spec:
+  type: LoadBalancer
+  selector:
+    role: mongo-secondary
+  ports:
+  - port: 27017
+    targetPort: 27017
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: poll-statefulset-secondary
+  namespace: poll
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  serviceName: mongo-service-secondary
+  replicas: 2
+  template:
+    metadata:
+      namespace: poll
+      name: mongo-secondary
+      role: mongo-secondary
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: mongo
+        image: mongo
+        command: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs" ]
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: mongo-volume-secondary
+          mountPath: /data/db
+      volumes:
+        - name: mongo-volume-secondary
+          persistentVolumeClaim:
+            claimName: poll-pvc
