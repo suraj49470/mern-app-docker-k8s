@@ -35,16 +35,19 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
-          command: ["sh","-c","chmod +x /scripts/transform.sh"]
+          command: ["sh","-c","cp /config-scripts/* /scripts/"]
           volumeMounts:
           - name: ngnix-volume-cfg
             mountPath: /etc/nginx/conf.d/default.conf
             subPath: default.conf
             readOnly: false
           - name: transform-volume-cfg
-            mountPath: /scripts/transform.sh
+            mountPath: /config-scripts/transform.sh
             subPath: transform.sh
-            readOnly: false            
+            readOnly: false
+          - name: transform-scripts
+            mountPath: /scripts
+            readOnly: false
       containers:
       - name: poll-voting-ui
         image: suraj49470/poll-voting-ui:latest
@@ -54,8 +57,11 @@ spec:
             subPath: default.conf
             readOnly: false
           - name: transform-volume-cfg
-            mountPath: /scripts/transform.sh
+            mountPath: /config-scripts/transform.sh
             subPath: transform.sh
+            readOnly: false
+          - name: transform-scripts
+            mountPath: /scripts
             readOnly: false
         env :
           - name:  REACT_APP_BACKEND_URL
@@ -75,3 +81,6 @@ spec:
         - name: transform-volume-cfg
           configMap:
             name: transform-config
+        - name: transform-scripts
+          emptyDir : {}
+
