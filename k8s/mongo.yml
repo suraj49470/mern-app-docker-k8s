@@ -34,9 +34,9 @@ spec:
         volumeMounts:
         - name: mongo-volume
           mountPath: /data/db
-    volumes:
-      - name: mongo-volume
-        persistentVolumeClaim:
-          claimName: poll-pvc
+      volumes:
+        - name: mongo-volume
+          persistentVolumeClaim:
+            claimName: poll-pvc
           
   
