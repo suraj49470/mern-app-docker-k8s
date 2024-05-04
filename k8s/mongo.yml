@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: mongo-service
 spec:
-  clusterIP: none
+  clusterIP: None
   selector:
     app: mongo
   ports:
