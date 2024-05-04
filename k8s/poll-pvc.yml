@@ -4,9 +4,9 @@ metadata:
   name: poll-pvc
   namespace: poll
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
-  storageClassName: poll-storage-class
   resources:
     requests:
       storage: 5Gi

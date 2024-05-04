@@ -4,12 +4,10 @@ metadata:
   name: poll-pv
   namespace: poll
 spec:
+  storageClassName: manual
   capacity:
     storage: 10Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: poll-storage-class
   hostPath:
-    path: /mnt/data
+    path: "/mnt/data"
