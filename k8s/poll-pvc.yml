@@ -4,6 +4,7 @@ metadata:
   name: poll-pvc
   namespace: poll
 spec:
+  storageClassName: manual
   volumeName: poll-pv
   accessModes:
     - ReadWriteOnce
