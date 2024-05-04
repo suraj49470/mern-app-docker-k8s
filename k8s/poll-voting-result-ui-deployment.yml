@@ -36,12 +36,16 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
+          command: ["sh","-c","echo 123"]
           volumeMounts:
+          - name: ngnix-volume-cfg
+            mountPath: /etc/nginx/conf.d/default.conf
+            subPath: default.conf
+            readOnly: false
           - name: transform-volume-cfg
             mountPath: /scripts/transform.sh
             subPath: transform.sh
             readOnly: false
-          command: ["sh","-c","chown 1000:1000 /scripts/transform.sh"]
       containers:
       - name: poll-voting-result-ui
         image: suraj49470/poll-voting-result-ui:latest
