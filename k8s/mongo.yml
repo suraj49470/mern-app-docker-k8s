@@ -11,6 +11,19 @@ spec:
   - port: 27017
     targetPort: 27017
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-readonly
+spec:
+  type: LoadBalancer
+  selector:
+    name: poll-statefulset-1,poll-statefulset-2
+  ports:
+  - port: 27017
+    targetPort: 27017
+
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -21,7 +34,7 @@ spec:
     matchLabels:
       app: mongo
   serviceName: mongo-service
-  replicas: 2
+  replicas: 3
   template:
     metadata:
       namespace: poll
