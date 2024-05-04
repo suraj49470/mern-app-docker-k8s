@@ -14,14 +14,21 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongo-readonly
+  name: poll-statefulset-LoadBalancer
 spec:
-  type: LoadBalancer
   selector:
-    name: poll-statefulset-1,poll-statefulset-2
+    app: poll-statefulset
+  type: LoadBalancer
   ports:
-  - port: 27017
-    targetPort: 27017
+    - protocol: TCP
+      port: 27017
+      targetPort: 27017
+  matchExpressions:
+    - key: ordinal-index
+      operator: In
+      values:
+        - "1"
+        - "2"
 
 ---
 apiVersion: apps/v1
