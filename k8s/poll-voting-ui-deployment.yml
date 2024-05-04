@@ -35,12 +35,13 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
-          volumeMounts:
-          - name: transform-volume-cfg
-            mountPath: /scripts/transform.sh
-            subPath: transform.sh
-            readOnly: false            
-          command: ["sh","-c","chown 1000:1000 /scripts/transform.sh"]
+          # volumeMounts:
+          # - name: transform-volume-cfg
+          #   mountPath: /scripts/transform.sh
+          #   subPath: transform.sh
+          #   readOnly: false            
+          # command: ["sh","-c","chown 1000:1000 /scripts/transform.sh"]
+          command: ["sh","-c","echo 123"]
       containers:
       - name: poll-voting-ui
         image: suraj49470/poll-voting-ui:latest
