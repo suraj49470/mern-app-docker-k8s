@@ -35,10 +35,10 @@ spec:
           securityContext:
             privileged: true
             runAsUser: 0
-          command: ["sh","-c","chown 1000:1000 /scripts/transform.sh"]
+          command: ["sh","-c","echo 123"]
           volumeMounts:
           - name: transform-volume-cfg
-            mountPath: /scripts
+            mountPath: /scripts/transform.sh
             subPath: transform.sh
             readOnly: false            
       containers:
@@ -50,7 +50,7 @@ spec:
             subPath: default.conf
             readOnly: false
           - name: transform-volume-cfg
-            mountPath: /scripts
+            mountPath: /scripts/transform.sh
             subPath: transform.sh
             readOnly: false
         env :
