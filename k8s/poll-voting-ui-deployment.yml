@@ -37,10 +37,6 @@ spec:
             runAsUser: 0
           command: ["sh","-c","cp /config-scripts/* /scripts/ && chmod +x /scripts/*"]
           volumeMounts:
-          - name: ngnix-volume-cfg
-            mountPath: /etc/nginx/conf.d/default.conf
-            subPath: default.conf
-            readOnly: false
           - name: transform-volume-cfg
             mountPath: /config-scripts/transform.sh
             subPath: transform.sh
@@ -51,7 +47,6 @@ spec:
       containers:
       - name: poll-voting-ui
         image: suraj49470/poll-voting-ui:latest
-        command: ["sh" , "-x" , "./scripts/transform.sh"]
         volumeMounts:
           - name: ngnix-volume-cfg
             mountPath: /etc/nginx/conf.d/default.conf
