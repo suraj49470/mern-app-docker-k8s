@@ -16,6 +16,17 @@ while [ "$pod_status" != "Running" ]; do
     sleep 3 # Optionally, you can add a delay to avoid overwhelming the Kubernetes API server
 done
 echo "*****************************************"
-echo "****** Apply mongodb replication ********"
+echo "****** check mongodb replication ********"
 echo "*****************************************"
-kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x "/rs-scripts/rs-init.sh"
+
+replication_status=$(k exec -it pod/poll-statefulset-primary-0 -- mongosh -- eval 'rs.status().ok')
+# Check if the age is greater than or equal to 18
+if [ "$replication_status" != "1" ]; then
+    echo "*****************************************"
+    echo "****** Apply mongodb replication ********"
+    echo "*****************************************"
+
+    kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x "/rs-scripts/rs-init.sh"    
+fi
+
+
