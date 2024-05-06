@@ -8,6 +8,7 @@ import PollCreatetContainers from './containers/PollCreateContainer/PollCreateCo
 import createPollReducer from './reducers/createPollReducer';
 import PollContainer from './containers/PollContainer/PollContainer';
 import { io } from "socket.io-client";
+import Health from './components/Health';
 const { REACT_APP_BACKEND_URL } = process.env;
 export const VoteContext = createContext<any>({} as any)
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/" element={<PollListContainers />} />
           <Route path="create" element={<PollCreatetContainers />} />
           <Route path="poll/:poll_id" element={<PollContainer />} />
+          <Route path="healthcheck" element={<Health />} />
         </Routes>
       </BrowserRouter>
     </VoteContext.Provider>
