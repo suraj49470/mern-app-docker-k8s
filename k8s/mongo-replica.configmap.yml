@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-replica-config
+  namespace: poll
+data: 
+  rs.iniit.sh : |
+    #!/bin/sh
+
+    DELAY=5
+
+    mongosh <<EOF
+    var config = {
+        "_id": "poll_rs",
+        "version": 1,
+        "members": [
+            {
+            "_id": 0,
+            "host": "poll-statefulset-primary-1.mongo-service-primary.poll.svc.cluster.local:27017",
+            "priority": 1
+            },
+            {
+                "_id": 1,
+                "host": "poll-statefulset-primary-0.mongo-service-primary.poll.svc.cluster.local:27017",
+                "priority": 1
+            }
+        ]
+    };
+    rs.initiate(config, { force: true });
+    EOF
+
+    echo "****** Waiting for ${DELAY} seconds for replicaset configuration to be applied ******"
+
+    sleep $DELAY
+
+    mongosh < /rs-scripts/init.js
+  init.js : |
+    rs.status();
+    db.createUser({user: 'admin', pwd: 'admin', roles: [ { role: 'root', db: 'admin' } ]});
+
+

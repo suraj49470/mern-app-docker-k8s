@@ -29,7 +29,18 @@ spec:
       labels:
         role: mongo-primary
     spec:
-      restartPolicy: Always
+      initContainers:
+        - name: mongo-replica-files-copy
+          image: busybox:latest
+          securityContext:
+            privileged: true
+            runAsUser: 0
+          volumeMounts:
+            - name: temp-mongo-config
+              mountPath: /tmp/rs-scripts
+            - name: mongo-config
+              mountPath: /rs-scripts
+          command: ["sh","-c" , "cp /tmp/rs-scripts /rs-scripts && chmod +x /rs-scripts/*"]
       containers:
       - name: mongo
         image: mongo
@@ -39,7 +50,17 @@ spec:
         volumeMounts:
         - name: mongo-volume
           mountPath: /data/db
+        - name: temp-mongo-config
+          mountPath: /tmp/rs-scripts
+        - name: mongo-config
+          mountPath: /rs-scripts
+      restartPolicy: Always
       volumes:
         - name: mongo-volume
           persistentVolumeClaim:
             claimName: poll-pvc
+        - name: temp-mongo-config
+          configMap:
+            name: mongo-replica-config
+        - name: mongo-config
+          emptyDir: {}
