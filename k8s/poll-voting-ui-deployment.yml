@@ -4,13 +4,12 @@ metadata:
   name: poll-voting-ui-service
   namespace: poll
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: poll-voting-ui
   ports:
   - protocol: TCP
     port: 3000
-    nodePort: 30000
     targetPort: 80
 ---
 apiVersion: apps/v1
