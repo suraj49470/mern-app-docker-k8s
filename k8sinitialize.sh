@@ -29,5 +29,6 @@ echo "****** apply mongodb replication ********"
 echo "*****************************************"
 
 kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x "/rs-scripts/rs-init.sh"
+kubectl get all -o wide
 
 
