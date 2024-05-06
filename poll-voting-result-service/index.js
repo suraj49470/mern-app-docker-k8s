@@ -17,6 +17,9 @@ const io = new Server(httpServer, {
         origin:"*"
     }
 });
+app.get('/healthcheck' , (req,res) => {
+    res.status(200).end('service healthy')
+});
 io.on("connection", (socket) => {
   console.log(socket.id);
   //myClientList[socket.id] = socket;   

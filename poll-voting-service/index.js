@@ -10,6 +10,9 @@ const app = express();
 const clientsConnectedToPoll = {
 
 };
+app.get('/healthcheck' , (req,res) => {
+    res.status(200).end('service healthy')
+});
 const httpServer = createServer(app);
 const io = new Server(httpServer, { 
     cors:{
