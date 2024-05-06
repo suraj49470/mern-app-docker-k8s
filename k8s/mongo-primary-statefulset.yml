@@ -39,12 +39,14 @@ spec:
             - name: temp-mongo-config
               mountPath: /tmp/rs-scripts/init.js
               subPath: init.js
+              readOnly: false
             - name: temp-mongo-config
               mountPath: /tmp/rs-scripts/rs-init.sh
+              readOnly: false
               subPath: rs-init.sh
             - name: mongo-config
               mountPath: /rs-scripts
-          command: ["sh","-c" , "cp -r /tmp/rs-scripts/* /rs-scripts/ && chmod +x /rs-scripts/*"]
+          command: ["sh","-c" , "cp /tmp/rs-scripts/* /rs-scripts/ && chmod +x /rs-scripts/*"]
       containers:
       - name: mongo
         image: mongo
@@ -57,9 +59,11 @@ spec:
         - name: temp-mongo-config
           mountPath: /tmp/rs-scripts/init.js
           subPath: init.js
+          readOnly: false
         - name: temp-mongo-config
           mountPath: /tmp/rs-scripts/rs-init.sh
           subPath: rs-init.sh
+          readOnly: false
         - name: mongo-config
           mountPath: /rs-scripts
       restartPolicy: Always
