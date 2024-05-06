@@ -4,7 +4,7 @@ metadata:
   name: mongo-replica-config
   namespace: poll
 data: 
-  rs.iniit.sh : |
+  rs.init.sh : |
     #!/bin/sh
 
     DELAY=5
