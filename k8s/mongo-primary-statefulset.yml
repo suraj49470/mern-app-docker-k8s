@@ -40,7 +40,7 @@ spec:
               mountPath: /tmp/rs-scripts
             - name: mongo-config
               mountPath: /rs-scripts
-          command: ["sh","-c" , "cp -r /tmp/rs-scripts/* /rs-scripts/ && chmod +x /rs-scripts/*"]
+          command: ["sh","-c" , "cp -r /tmp/rs-scripts/* /rs-scripts/"]
       containers:
       - name: mongo
         image: mongo
