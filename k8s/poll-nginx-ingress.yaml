@@ -18,7 +18,7 @@ spec:
             port: 
               number: 3000
       - pathType: Prefix
-        path: "/api"
+        path: "/api/"
         backend:
           service:
             name: poll-voting-service
@@ -35,7 +35,7 @@ spec:
             port: 
               number: 3001
       - pathType: Prefix
-        path: "/api"
+        path: "/api/"
         backend:
           service:
             name: poll-voting-result-service
