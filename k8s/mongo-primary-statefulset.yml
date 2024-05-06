@@ -38,9 +38,13 @@ spec:
           volumeMounts:
             - name: temp-mongo-config
               mountPath: /tmp/rs-scripts
+              subPath: rs.iniit.sh
+            - name: temp-mongo-config
+              mountPath: /tmp/rs-scripts
+              subPath: iniit.js
             - name: mongo-config
               mountPath: /rs-scripts
-          command: ["sh","-c" , "cp /tmp/rs-scripts /rs-scripts && chmod +x /rs-scripts/*"]
+          command: ["sh","-c" , "cp /tmp/rs-scripts/* /rs-scripts/ && chmod +x /rs-scripts/*"]
       containers:
       - name: mongo
         image: mongo
@@ -52,8 +56,10 @@ spec:
           mountPath: /data/db
         - name: temp-mongo-config
           mountPath: /tmp/rs-scripts
+          subPath: rs.iniit.sh
         - name: mongo-config
           mountPath: /rs-scripts
+          subPath: iniit.js
       restartPolicy: Always
       volumes:
         - name: mongo-volume
