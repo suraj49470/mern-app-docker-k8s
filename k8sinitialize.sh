@@ -15,5 +15,7 @@ while [ "$pod_status" != "Running" ]; do
     echo "$pod_status"
     sleep 3 # Optionally, you can add a delay to avoid overwhelming the Kubernetes API server
 done
-
-echo "Loop finished"
+echo "*****************************************"
+echo "****** Apply mongodb replication ********"
+echo "*****************************************"
+kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x "/rs-scripts/rs-init.sh"
