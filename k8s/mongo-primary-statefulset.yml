@@ -37,7 +37,11 @@ spec:
             runAsUser: 0
           volumeMounts:
             - name: temp-mongo-config
-              mountPath: /tmp/rs-scripts
+              mountPath: /tmp/rs-scripts/init.js
+              subPath: init.js
+            - name: temp-mongo-config
+              mountPath: /tmp/rs-scripts/rs-init.sh
+              subPath: rs-init.sh
             - name: mongo-config
               mountPath: /rs-scripts
           command: ["sh","-c" , "cp -r /tmp/rs-scripts/* /rs-scripts/"]
@@ -51,7 +55,11 @@ spec:
         - name: mongo-volume
           mountPath: /data/db
         - name: temp-mongo-config
-          mountPath: /tmp/rs-scripts
+          mountPath: /tmp/rs-scripts/init.js
+          subPath: init.js
+        - name: temp-mongo-config
+          mountPath: /tmp/rs-scripts/rs-init.sh
+          subPath: rs-init.sh
         - name: mongo-config
           mountPath: /rs-scripts
       restartPolicy: Always
