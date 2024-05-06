@@ -36,11 +36,11 @@ spec:
             privileged: true
             runAsUser: 0
           volumeMounts:
-            - name: temp-mongo-config
+            - name: mongo-replica-config-init
               mountPath: /tmp/rs-scripts/init.js
               subPath: init.js
               readOnly: false
-            - name: temp-mongo-config
+            - name: temp-mongo-config-rs-init
               mountPath: /tmp/rs-scripts/rs-init.sh
               readOnly: false
               subPath: rs-init.sh
@@ -56,11 +56,11 @@ spec:
         volumeMounts:
         - name: mongo-volume
           mountPath: /data/db
-        - name: temp-mongo-config
+        - name: mongo-replica-config-init
           mountPath: /tmp/rs-scripts/init.js
           subPath: init.js
           readOnly: false
-        - name: temp-mongo-config
+        - name: temp-mongo-config-rs-init
           mountPath: /tmp/rs-scripts/rs-init.sh
           subPath: rs-init.sh
           readOnly: false
@@ -71,8 +71,11 @@ spec:
         - name: mongo-volume
           persistentVolumeClaim:
             claimName: poll-pvc
-        - name: temp-mongo-config
+        - name: temp-mongo-config-init
           configMap:
             name: mongo-replica-config
+        - name: temp-mongo-config-rs-init
+          configMap:
+            name: mongo-replica-config-rs-init
         - name: mongo-config
           emptyDir: {}
