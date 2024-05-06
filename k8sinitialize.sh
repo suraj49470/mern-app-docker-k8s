@@ -19,14 +19,6 @@ echo "*****************************************"
 echo "****** check mongodb replication ********"
 echo "*****************************************"
 
-replication_status=$(k exec -it pod/poll-statefulset-primary-0 -- mongosh -- eval 'rs.status().ok')
-# Check if the age is greater than or equal to 18
-if [ "$replication_status" != "1" ]; then
-    echo "*****************************************"
-    echo "****** Apply mongodb replication ********"
-    echo "*****************************************"
-
-    kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x "/rs-scripts/rs-init.sh"    
-fi
+kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x "/rs-scripts/rs-init.sh"
 
 
