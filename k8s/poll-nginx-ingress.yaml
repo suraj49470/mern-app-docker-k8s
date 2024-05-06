@@ -1,0 +1,43 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: poll-ingress
+  namespace: poll
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: poll-app.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: poll-voting-ui-service
+            port: 
+              number: 3000
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: poll-voting-service
+            port: 
+              number: 5000
+  - host: poll-result-app.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: poll-voting-result-ui-service
+            port: 
+              number: 3001
+      - pathType: Prefix
+        path: "/api"
+        backend:
+          service:
+            name: poll-voting-result-service
+            port: 
+              number: 5001
