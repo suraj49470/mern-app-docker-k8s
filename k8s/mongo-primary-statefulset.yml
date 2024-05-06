@@ -73,7 +73,7 @@ spec:
             claimName: poll-pvc
         - name: temp-mongo-config-init
           configMap:
-            name: mongo-replica-config
+            name: mongo-replica-config-init
         - name: temp-mongo-config-rs-init
           configMap:
             name: mongo-replica-config-rs-init
