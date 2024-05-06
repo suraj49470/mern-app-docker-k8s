@@ -36,7 +36,7 @@ spec:
             privileged: true
             runAsUser: 0
           volumeMounts:
-            - name: mongo-replica-config-init
+            - name: temp-mongo-config-init
               mountPath: /tmp/rs-scripts/init.js
               subPath: init.js
               readOnly: false
@@ -56,7 +56,7 @@ spec:
         volumeMounts:
         - name: mongo-volume
           mountPath: /data/db
-        - name: mongo-replica-config-init
+        - name: temp-mongo-config-init
           mountPath: /tmp/rs-scripts/init.js
           subPath: init.js
           readOnly: false
