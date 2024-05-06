@@ -61,7 +61,7 @@ spec:
             readOnly: false
         env: 
           - name: REACT_APP_BACKEND_URL
-            value: http://poll-voting-result-service:5001
+            value: /api
         resources:
           limits:
             memory: "50Mi"

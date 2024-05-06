@@ -60,7 +60,7 @@ spec:
             readOnly: false
         env :
           - name:  REACT_APP_BACKEND_URL
-            value: http://poll-voting-service:5000 
+            value: /api 
           - name:  REACT_APP_POLL_RESULT_URL
             value: http://poll-voting-result-ui-service:3001 
         resources:
