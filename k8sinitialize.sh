@@ -12,7 +12,7 @@ echo "$pod_status"
 while [ "$pod_status" != "Running" ]; do
     # Get the status of the pod again
     pod_status=$(kubectl get pod/poll-statefulset-primary-0 -o jsonpath='{.status.phase}')
-    echo "$pod_status"
+    echo "pod status is $pod_status,wating for running state ..."
     sleep 3 # Optionally, you can add a delay to avoid overwhelming the Kubernetes API server
 done
 echo "*****************************************"
