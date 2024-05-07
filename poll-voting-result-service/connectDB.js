@@ -12,13 +12,19 @@ const options = {
     family: 4 // Use IPv4, skip trying IPv6
 }
 console.log(process.env);
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 const connectDB = async () => {
     try{
         db = await mongoose.connect(process.env.MONGO_URL , options);
         console.log('connected to database');
     }catch(e){
-        console.log(e);
-    }
+        if(!db){
+            await sleep(5000);
+            connectDB();
+        }
+        console.log(e);    }
 }
 connectDB();
 module.exports = db;
