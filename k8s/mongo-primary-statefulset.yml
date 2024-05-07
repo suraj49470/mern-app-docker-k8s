@@ -53,6 +53,7 @@ spec:
         command: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "poll_rs" ]
         ports:
         - containerPort: 27017
+          hostPort: 27017
         volumeMounts:
         - name: mongo-volume
           mountPath: /data/db
