@@ -16,13 +16,17 @@ echo "$pod_status"
 echo "$pod_status_1"
 
 # Define the while loop condition
-while [ "$pod_status" != "Running" ] && [ "$pod_status_1" != "Running" ]; do
+while [ "$pod_status" != "Running" ]; do
     # Get the status of the pod again
     pod_status=$(kubectl get pod/poll-statefulset-primary-0 -o jsonpath='{.status.phase}')
-    pod_status_1=$(kubectl get pod/poll-statefulset-primary-1 -o jsonpath='{.status.phase}')
     echo "pod 1 status is $pod_status,wating for running state ..."
+    sleep 1 # Optionally, you can add a delay to avoid overwhelming the Kubernetes API server
+done
+while [ "$pod_status_1" != "Running" ]; do
+    # Get the status of the pod again
+    pod_status_1=$(kubectl get pod/poll-statefulset-primary-1 -o jsonpath='{.status.phase}')
     echo "pod 2 status is $pod_status_1,wating for running state ..."
-    sleep 3 # Optionally, you can add a delay to avoid overwhelming the Kubernetes API server
+    sleep 1 # Optionally, you can add a delay to avoid overwhelming the Kubernetes API server
 done
 echo "*****************************************"
 echo "****** apply mongodb replication ********"
