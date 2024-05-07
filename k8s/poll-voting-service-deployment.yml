@@ -30,7 +30,7 @@ spec:
     spec:
       containers:
       - name: poll-voting-service
-        image: suraj49470/poll-voting-service:latest
+        image: suraj49470/poll-voting-service:v1
         env:
           - name: PORT
             value: "80"
