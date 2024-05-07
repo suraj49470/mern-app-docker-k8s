@@ -68,6 +68,10 @@ spec:
         - name: mongo-config
           mountPath: /rs-scripts
       restartPolicy: Always
+      lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-x", "/rs-scripts/rs-init.sh"]
       volumes:
         - name: mongo-volume
           persistentVolumeClaim:
