@@ -68,6 +68,10 @@ spec:
             cpu: "100m"
         ports:
         - containerPort: 80
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-x", "/scripts/transform.sh"]
       volumes:
         - name: ngnix-volume-cfg
           configMap:
