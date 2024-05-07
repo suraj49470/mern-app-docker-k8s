@@ -24,7 +24,8 @@ const connectDB = async () => {
             await sleep(5000);
             connectDB();
         }
-        console.log(e);    }
+        console.log(e);    
+    }
 }
 connectDB();
 module.exports = db;
