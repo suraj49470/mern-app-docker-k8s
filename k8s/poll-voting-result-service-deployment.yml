@@ -36,7 +36,8 @@ spec:
           - name: POLL_VOTING_SERVICE
             value: http://poll-voting-service:5000
           - name: MONGO_URL
-            value: mongodb://poll-statefulset-primary-1.mongo-service-primary.poll.svc.cluster.local:27017/vote?directConnection=true&readPreference=primaryPreferred
+            #value: mongodb://poll-statefulset-primary-1.mongo-service-primary.poll.svc.cluster.local:27017/vote?directConnection=true&readPreference=primaryPreferred
+            value: mongodb://mongo:27017/vote?directConnection=true
         resources:
           limits:
             memory: "250Mi"

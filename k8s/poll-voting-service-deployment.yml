@@ -35,7 +35,7 @@ spec:
           - name: PORT
             value: "80"
           -  name: MONGO_URL
-             value: mongodb://poll-statefulset-primary-0.mongo-service-primary.poll.svc.cluster.local:27017/vote?directConnection=true
+             value: mongodb://mongo:27017/vote?directConnection=true
         resources:
           limits:
             memory: "250Mi"
