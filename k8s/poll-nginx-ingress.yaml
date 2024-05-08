@@ -5,9 +5,7 @@ metadata:
   namespace: poll
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    ingress.kubernetes.io/ssl-redirect: "false"
     nginx.ingress.kubernetes.io/websocket-services: "poll-voting-service,poll-voting-result-service"
     nginx.org/websocket-services: "poll-voting-service,poll-voting-result-service"
 spec:
