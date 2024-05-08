@@ -20,12 +20,12 @@ data:
                 "priority": 1
                 },
                 {
-                "_id": 0,
+                "_id": 1,
                 "host": "poll-statefulset-secondary-0.mongo-service-secondary.poll.svc.cluster.local:27017",
                 "priority": 0.5
                 },
                 {
-                "_id": 0,
+                "_id": 2,
                 "host": "poll-statefulset-secondary-1.mongo-service-secondary.poll.svc.cluster.local:27017",
                 "priority": 0.5
                 }
