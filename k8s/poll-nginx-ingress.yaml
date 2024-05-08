@@ -5,14 +5,10 @@ metadata:
   namespace: poll
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
-    certmanager.k8s.io/cluster-issuer: core-prod
-    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
-    nginx.ingress.kubernetes.io/secure-backends: "true"
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/websocket-services: core-service
-    nginx.org/websocket-services: core-service
+    nginx.ingress.kubernetes.io/websocket-services: "poll-voting-service,poll-voting-result-service"
+    nginx.org/websocket-services: "poll-voting-service,poll-voting-result-service"
 spec:
   rules:
     - host: poll-app.com
@@ -55,7 +51,3 @@ spec:
               name: poll-voting-result-service
               port: 
                 number: 5001
-  tls: 
-    - hosts:
-      - poll-app-service.com
-      secretName: core-prod
