@@ -251,9 +251,9 @@ text-decoration:line-through;;
   }
 
   .server-details{
-    position: absolute;
+    position: fixed;
     opacity: 0.5;
-    width: max-content;
+    width: max-content !important;
     bottom: 0;
     left: 0;
     margin-left: 10px;
