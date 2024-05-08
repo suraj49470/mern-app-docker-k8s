@@ -15,7 +15,7 @@ function App() {
   console.log(process.env);
   const [clientHostname] = useState(REACT_APP_HOSTNAME);
   const [hostname, setHostname] = useState('');
-  const [socket] = useState(io(REACT_APP_BACKEND_URL || 'http://localhost:5000'));
+  const [socket] = useState(io(REACT_APP_BACKEND_URL || 'http://localhost:5000', { transports: ['websocket'],upgrade: false }));
   socket.on("connect", () => {
     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
   });
