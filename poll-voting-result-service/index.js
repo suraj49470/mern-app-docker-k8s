@@ -12,7 +12,7 @@ const os = require('os');
 const cors = require('cors');
 const myClientList = {};
 const httpServer = createServer(app);
-const socket_client = sc.io(process.env.POLL_VOTING_SERVICE);
+let socket_client = sc.io(process.env.POLL_VOTING_SERVICE,{ transports: ['websocket'],upgrade: false });
 const io = new Server(httpServer, { 
     cors:{
         origin:"*"
@@ -25,7 +25,17 @@ app
 })
 .get('/hostname', (req,res) => {
     res.status(200).end(os.hostname());
-})
+});
+
+function connectSocketClientIo() {
+    if(!socket_client.connected){
+        connectSocketClientIo();
+        return;
+    }
+    socket_client = sc.io(process.env.POLL_VOTING_SERVICE,{ transports: ['websocket'],upgrade: false });
+    console.log(socket_client.connected);
+}
+connectSocketClientIo();
 io.on("connection", (socket) => {
   console.log(socket.id);
   //myClientList[socket.id] = socket;   
@@ -109,7 +119,6 @@ socket_client.on('SERVICE_TO_SERVICE_SYNC' , async (action) => {
             break;
     }
 });
-
 
 const PORT = process.env.PORT || 5001;
 httpServer.listen(PORT , (err) => {
