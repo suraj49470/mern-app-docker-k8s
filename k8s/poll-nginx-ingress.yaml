@@ -5,45 +5,57 @@ metadata:
   namespace: poll
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    certmanager.k8s.io/cluster-issuer: core-prod
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/websocket-services: core-service
+    nginx.org/websocket-services: core-service
 spec:
   rules:
-  - host: poll-app.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: poll-voting-ui-service
-            port: 
-              number: 3000
-  - host: poll-app-service.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: poll-voting-service
-            port: 
-              number: 5000
-  - host: poll-result-app.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: poll-voting-result-ui-service
-            port: 
-              number: 3001
-  - host: poll-result-app-service.com
-    http:
-      paths:
-      - pathType: Prefix
-        path: "/"
-        backend:
-          service:
-            name: poll-voting-result-service
-            port: 
-              number: 5001
+    - host: poll-app.com
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: poll-voting-ui-service
+              port: 
+                number: 3000
+    - host: poll-app-service.com
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: poll-voting-service
+              port: 
+                number: 5000
+    - host: poll-result-app.com
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: poll-voting-result-ui-service
+              port: 
+                number: 3001
+    - host: poll-result-app-service.com
+      http:
+        paths:
+        - pathType: Prefix
+          path: "/"
+          backend:
+            service:
+              name: poll-voting-result-service
+              port: 
+                number: 5001
+  tls: 
+    - hosts:
+      - poll-app-service.com
+      secretName: core-prod
