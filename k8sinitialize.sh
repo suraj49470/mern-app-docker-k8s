@@ -13,6 +13,9 @@ kubectl wait --namespace poll --for=condition=ready pod --selector=role=mongo-pr
 kubectl wait --namespace poll --for=condition=ready pod --selector=role=mongo-secondary --timeout=180s
 echo "mongo primary and secondary db setup completed"
 echo "configuring replicaset on primary mongo pod"
-kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x rs-scripts/rs-init.sh
+is_replication_done==$(kubectl exec -it pod/poll-statefulset-primary-0 -- mongosh --eval 'rs.status().ok')
+if [ "$is_replication_done" != 1 ]; then
+    kubectl exec -it pod/poll-statefulset-primary-0 -- sh -x rs-scripts/rs-init.sh
+fi
 kubectl get all -o wide
 
