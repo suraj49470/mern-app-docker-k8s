@@ -8,9 +8,9 @@ kubectl apply -f ./poll-namespace.yml
 kubectl config set-context --current --namespace=poll
 sleep 3
 kubectl apply -f ./k8s
-echo "wating for mongo primary and secondary db"
-kubectl wait --namespace poll --for=condition=ready pod --selector=role=mongo-primary --timeout=180s
-kubectl wait --namespace poll --for=condition=ready pod --selector=role=mongo-secondary --timeout=180s
+echo "waiting for mongo primary and secondary db"
+kubectl wait --namespace poll --for=condition=ready pod --selector=role=mongo-primary
+kubectl wait --namespace poll --for=condition=ready pod --selector=role=mongo-secondary
 echo "mongo primary and secondary db setup completed"
 echo "configuring replicaset on primary mongo pod"
 is_replication_done==$(kubectl exec -it pod/poll-statefulset-primary-0 -- mongosh --eval 'rs.status().ok')
