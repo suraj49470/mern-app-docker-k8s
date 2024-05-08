@@ -46,7 +46,7 @@ spec:
             readOnly: false
       containers:
       - name: poll-voting-result-ui
-        image: suraj49470/poll-voting-result-ui:v3
+        image: suraj49470/poll-voting-result-ui:v4
         volumeMounts:
           - name: ngnix-volume-cfg
             mountPath: /etc/nginx/conf.d/default.conf
