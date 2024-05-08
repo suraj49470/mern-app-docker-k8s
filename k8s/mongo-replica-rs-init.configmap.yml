@@ -18,6 +18,16 @@ data:
                 "_id": 0,
                 "host": "poll-statefulset-primary-0.mongo-service-primary.poll.svc.cluster.local:27017",
                 "priority": 1
+                },
+                {
+                "_id": 0,
+                "host": "poll-statefulset-secondary-0.mongo-service-secondary.poll.svc.cluster.local:27017",
+                "priority": 0.5
+                },
+                {
+                "_id": 0,
+                "host": "poll-statefulset-secondary-1.mongo-service-secondary.poll.svc.cluster.local:27017",
+                "priority": 0.5
                 }
             ]
         };
