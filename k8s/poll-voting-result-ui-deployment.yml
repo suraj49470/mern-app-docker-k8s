@@ -78,6 +78,10 @@ spec:
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
       volumes:
         - name: ngnix-volume-cfg
           configMap:
