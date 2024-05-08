@@ -63,9 +63,9 @@ io.on("connection", (socket) => {
 });
 
 socket_client.on('connect', () => {
-    console.log(socket_client.id);
+    console.log('server' , socket_client.id);
 }).on('disconnect' , () => {
-    console.log('disconnected' , socket_client.id);
+    console.log('disconnected server ' , socket_client.id);
 });
 
 socket_client.on('SERVICE_TO_SERVICE_SYNC' , async (action) => {
