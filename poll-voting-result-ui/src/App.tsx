@@ -49,6 +49,14 @@ function App() {
   return (
     <VoteContext.Provider value={voteStateDispatch}>
       <BrowserRouter>
+      <p className='server-details'>
+          <p className='client-details'>
+            <strong>Client Server: </strong> {clientHostname}
+          </p>
+          <p className='serv-details'>
+          <strong>Backend Server: </strong>{hostname}
+          </p>
+        </p>
         <Routes>
           <Route path="/" element={<PollListContainers />} />
           <Route path="/result/:id" element={<PollResultContainer />} />
