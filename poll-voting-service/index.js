@@ -7,12 +7,16 @@ const { CREATE_POLL } = require("./actions");
 const vote = require('./models/vote');
 const crud = require('./utility/crud')
 const app = express();
-const clientsConnectedToPoll = {
-
-};
-app.get('/healthcheck' , (req,res) => {
+const os = require('os');
+const cors = require('cors');
+app.use(cors())
+app
+.get('/healthcheck' , (req,res) => {
     res.status(200).end('service healthy')
-});
+})
+.get('/hostname', (req,res) => {
+    res.status(200).end(os.hostname());
+})
 const httpServer = createServer(app);
 const io = new Server(httpServer, { 
     cors:{

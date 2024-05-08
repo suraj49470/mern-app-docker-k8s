@@ -7,5 +7,6 @@ for filename in *.js; do
     echo "$filename";
     sed -i "s|%REACT_APP_BACKEND_URL%|$REACT_APP_BACKEND_URL|g" "$filename"
     sed -i "s|%REACT_APP_POLL_RESULT_URL%|$REACT_APP_POLL_RESULT_URL|g" "$filename"
+    sed -i "s|%REACT_APP_HOSTNAME%|$HOSTNAME|g" "$filename"
 done
 nginx -s reload

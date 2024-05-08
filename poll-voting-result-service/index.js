@@ -8,8 +8,9 @@ const vote = require('./models/vote');
 const crud = require('./utility/crud')
 const app = express();
 const sc = require('socket.io-client');
+const os = require('os');
+const cors = require('cors');
 const myClientList = {};
-
 const httpServer = createServer(app);
 const socket_client = sc.io(process.env.POLL_VOTING_SERVICE);
 const io = new Server(httpServer, { 
@@ -17,9 +18,14 @@ const io = new Server(httpServer, {
         origin:"*"
     }
 });
-app.get('/healthcheck' , (req,res) => {
+app.use(cors());
+app
+.get('/healthcheck' , (req,res) => {
     res.status(200).end('service healthy')
-});
+})
+.get('/hostname', (req,res) => {
+    res.status(200).end(os.hostname());
+})
 io.on("connection", (socket) => {
   console.log(socket.id);
   //myClientList[socket.id] = socket;   

@@ -9,10 +9,12 @@ import createPollReducer from './reducers/createPollReducer';
 import PollContainer from './containers/PollContainer/PollContainer';
 import { io } from "socket.io-client";
 import Health from './components/Health';
-const { REACT_APP_BACKEND_URL } = process.env;
+const { REACT_APP_BACKEND_URL, REACT_APP_HOSTNAME } = process.env;
 export const VoteContext = createContext<any>({} as any)
 function App() {
   console.log(process.env);
+  const [clientHostname] = useState(REACT_APP_HOSTNAME);
+  const [hostname, setHostname] = useState('');
   const [socket] = useState(io(REACT_APP_BACKEND_URL || 'http://localhost:5000'));
   socket.on("connect", () => {
     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
@@ -27,6 +29,12 @@ function App() {
   });
   const [createPollState, createPollDispatch] = useReducer(createPollReducer, initialState.createPoll);
   const voteStateDispatch = { pollState, pollDispatch, createPollState, createPollDispatch, socket };
+  const fetchHostname = async () => {
+    const response = await fetch(`${REACT_APP_BACKEND_URL}/hostname`);
+    const hostname = await response.text();
+    setHostname(hostname);
+    console.log(hostname);
+  }
   useEffect(() => {
     if (!socket.connected) {
       console.log('not conneted');
@@ -34,12 +42,23 @@ function App() {
     }
     console.log('connected');
   }, [socket.connected]);
-
+  
+  useEffect(() => {
+      fetchHostname();  
+  },[]);
 
 
   return (
     <VoteContext.Provider value={voteStateDispatch}>
       <BrowserRouter>
+        <p className='server-details'>
+          <p className='client-details'>
+            <strong>Client Server: </strong> {clientHostname}
+          </p>
+          <p className='serv-details'>
+          <strong>Backend Server: </strong>{hostname}
+          </p>
+        </p>
         <Routes>
           <Route path="/" element={<PollListContainers />} />
           <Route path="create" element={<PollCreatetContainers />} />

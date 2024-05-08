@@ -249,3 +249,18 @@ text-decoration:line-through;;
     vertical-align: middle;
     color: white;
   }
+
+  .server-details{
+    position: absolute;
+    opacity: 0.5;
+    width: max-content;
+    bottom: 0;
+    left: 0;
+    margin-left: 10px;
+}
+.server-details p{
+    display: inline-block;
+}
+.serv-details{
+    margin-left: 10px;
+}

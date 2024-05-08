@@ -7,11 +7,13 @@ import PollListContainers from './containers/PollListContainer/PollListContainer
 import { io } from "socket.io-client";
 import PollResultContainer from './containers/PollResultContainer/PollResultContainer';
 import Health from './components/Health';
-const { REACT_APP_BACKEND_URL } = process.env;
+const { REACT_APP_BACKEND_URL, REACT_APP_HOSTNAME } = process.env;
 
 export const VoteContext = createContext<any>({} as any)
 function App() {
   console.log(process.env);
+  const [clientHostname] = useState(REACT_APP_HOSTNAME);
+  const [hostname, setHostname] = useState('');
   const [socket] = useState(io(REACT_APP_BACKEND_URL || 'http://localhost:5001'));
   socket.on("connect", () => {
     console.log(socket.id); // x8WIv7-mJelg7on_ALbx
@@ -32,7 +34,17 @@ function App() {
     }
     console.log('connected');
   }, [socket.connected]);
+  
+  const fetchHostname = async () => {
+    const response = await fetch(`${REACT_APP_BACKEND_URL}/hostname`);
+    const hostname = await response.text();
+    setHostname(hostname);
+    console.log(hostname);
+  }
 
+  useEffect(() => {
+    fetchHostname();  
+  },[]);
   const voteStateDispatch = { pollState, pollDispatch, socket };
   return (
     <VoteContext.Provider value={voteStateDispatch}>
