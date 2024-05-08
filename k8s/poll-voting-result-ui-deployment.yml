@@ -72,6 +72,12 @@ spec:
           postStart:
             exec:
               command: ["/bin/sh", "-x", "/scripts/transform.sh"]
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
       volumes:
         - name: ngnix-volume-cfg
           configMap:

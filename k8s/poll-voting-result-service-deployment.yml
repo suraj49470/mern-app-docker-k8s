@@ -42,7 +42,14 @@ spec:
             memory: "250Mi"
             cpu: "750m"
         ports:
-        - containerPort: 80
+          - containerPort: 80
+        livenessProbe:
+          httpGet:
+            path: /healthcheck
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 10
+  
       # volumes:
       #   - name: poll-pod-volume
       #     PersistentVolumeClaim:
