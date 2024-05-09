@@ -29,6 +29,7 @@ app
 
 io.on("connection", (socket) => {
   console.log(socket.id);
+  socket_client = sc.io(process.env.POLL_VOTING_SERVICE,{ transports: ['websocket'],upgrade: false });
   //myClientList[socket.id] = socket;   
   socket.on('FETCH_POLL_LIST_REQUEST' , async () => {
         try {
