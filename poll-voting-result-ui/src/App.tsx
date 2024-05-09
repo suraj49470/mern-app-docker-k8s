@@ -44,6 +44,9 @@ function App() {
 
   useEffect(() => {
     fetchHostname();  
+    return () => {
+      socket.close();
+    }
   },[]);
   const voteStateDispatch = { pollState, pollDispatch, socket };
   return (

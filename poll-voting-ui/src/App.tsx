@@ -44,7 +44,10 @@ function App() {
   }, [socket.connected]);
   
   useEffect(() => {
-      fetchHostname();  
+      fetchHostname();
+      return () => {
+        socket.close();
+      }  
   },[]);
 
 
