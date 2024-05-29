@@ -32,7 +32,7 @@ services:
       - poll
   poll-voting-service:
     hostname: poll-voting-service
-    image: suraj49470/poll-voting-service::v1
+    image: suraj49470/poll-voting-service:v1
     environment:
       MONGO_URL: mongodb://mongo_primary:27017/vote?directConnection=true
       PORT: 5000
