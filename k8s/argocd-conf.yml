@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: poll
+  namespace: argocd
+spec:
+  destination:
+    name: ''
+    namespace: poll
+    server: https://kubernetes.default.svc
+  source:
+    path: k8s
+    repoURL: https://github.com/suraj49470/mern-app-docker-k8s.git
+    targetRevision: HEAD
+  # sources: []
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
