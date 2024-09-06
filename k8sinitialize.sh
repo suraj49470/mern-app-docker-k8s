@@ -1,10 +1,11 @@
 #!/bin/sh
 
-
-kubectl apply --filename https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/provider/kind/deploy.yaml
+kubectl apply -f ./k8s/ingress-controller.yml
 kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 # Apply the namespace and Kubernetes manifests
-kubectl apply -f ./poll-namespace.yml
+kubectl apply -f ./k8s/poll-namespace.yml
 kubectl config set-context --current --namespace=poll
 sleep 3
 kubectl apply -f ./k8s
